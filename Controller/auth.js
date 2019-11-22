@@ -1,15 +1,23 @@
 const axios = require('axios');
 const axiosInstace = axios.create({
-    baseURL: 'https:/ec021-2019-av2-auth.herokuapp.com/auth',
 });
 
+const baseURL = 'https://ec021-2019-2-av2-auth.herokuapp.com/auth/login';
+
 function login(req, res) {
-    const { username, password } = req.body;
-    axiosInstace.post('/login', { username, password })
+    let { username, password } = req.body;
+    //console.log(`${username} | ${password}`);
+    //console.log(`${req.body}`);
+    let config = {
+        headers: {},
+    };
+    axios.post(baseURL, { username, password }, config)
     .then((response) => {
+        //console.log(response);
         return res.json(response.data);
     })
     .catch((error) => {
+        //console.error(error);
         return res.json(error);
     });
 }
